@@ -9,8 +9,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     var musicList: ArrayList<OboeExcerpt> = arrayListOf()
-    var OboeExcerpt = OboeExcerpt("Firebird Test", R.raw.firebird_test)
-    var adapter: MyAdapter = MyAdapter(musicList)
+    var oboeExcerpt: OboeExcerpt
+    var adapter: MyAdapter
+
+    init {
+
+        oboeExcerpt = OboeExcerpt("Firebird Test", R.raw.firebird_test)
+        populateMusicList()
+        adapter = MyAdapter(musicList)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,25 +26,10 @@ class MainActivity : AppCompatActivity() {
         // what up
         // yo?
 
-        musicList.add(OboeExcerpt)
-        OboeExcerpt = OboeExcerpt("Oboe Test", R.raw.oboe_test)
-        musicList.add(OboeExcerpt)
-
-
-
-
-
         recyclerlViewMain.setBackgroundColor(Color.CYAN);
 
         recyclerlViewMain.layoutManager = LinearLayoutManager(this)
         recyclerlViewMain.adapter = adapter
-
-        // testing...
-
-        copyRawSoundFile();
-
-
-
 
 
     }
@@ -49,6 +41,13 @@ class MainActivity : AppCompatActivity() {
 
 
         super.onStop()
+    }
+
+    fun populateMusicList() {
+        oboeExcerpt = OboeExcerpt("Firebird Test", R.raw.firebird_test)
+        musicList.add(oboeExcerpt)
+        oboeExcerpt = OboeExcerpt("Oboe Test", R.raw.oboe_test)
+        musicList.add(oboeExcerpt)
     }
 
 

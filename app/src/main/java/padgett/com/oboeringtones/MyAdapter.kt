@@ -2,6 +2,7 @@ package padgett.com.oboeringtones
 
 import android.graphics.Color
 import android.media.MediaPlayer
+import android.provider.MediaStore
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -31,26 +32,36 @@ var mediaPlayer: MediaPlayer? = MediaPlayer()
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        var oboeExcerpt: OboeExcerpt = excerptList.get(position)
 
-        var title: String = excerptList.get(position).title
+        var title: String = oboeExcerpt.title
         var excerpt: Int = excerptList.get(position).musicResource
 
         holder.itemView.textView.setText(title)
 
         holder.itemView.setOnClickListener {
             Toast.makeText(holder.itemView.context, "Hello!", Toast.LENGTH_SHORT).show()
+
+
+            //copyRawSoundFile(holder.itemView.context, oboeExcerpt, MediaStore.Audio.Media.IS_ALARM)
         }
 
         holder.itemView.imageView.setOnClickListener {
+
             if (mediaPlayer?.isPlaying() ?: false) {
                 mediaPlayer?.pause()
-
-
+                Toast.makeText(holder.itemView.context, "mediaplayer is playing.  set to pause.", Toast.LENGTH_SHORT).show()
 
             }
 
             mediaPlayer = MediaPlayer.create(holder.itemView.context, excerpt)
+            Toast.makeText(holder.itemView.context, "mediaplayer was not playing.  set to start.", Toast.LENGTH_SHORT).show()
             mediaPlayer?.start()
+            println("mediaplayer playing: ${mediaPlayer?.isPlaying}")
+            println("mediaplayer is: ${mediaPlayer.toString()}")
+
+
+
 
         }
         if (position % 2 ==0) {
