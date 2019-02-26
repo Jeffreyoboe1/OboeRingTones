@@ -37,16 +37,20 @@ var mediaPlayer: MediaPlayer? = MediaPlayer()
 
         holder.itemView.textView.setText(title)
 
+        holder.itemView.setOnClickListener {
+            Toast.makeText(holder.itemView.context, "Hello!", Toast.LENGTH_SHORT).show()
+        }
+
         holder.itemView.imageView.setOnClickListener {
             if (mediaPlayer?.isPlaying() ?: false) {
-                mediaPlayer?.pause();
+                mediaPlayer?.pause()
 
 
 
             }
 
-            mediaPlayer = MediaPlayer.create(holder.itemView.context, excerpt);
-            mediaPlayer?.start();
+            mediaPlayer = MediaPlayer.create(holder.itemView.context, excerpt)
+            mediaPlayer?.start()
 
         }
         if (position % 2 ==0) {

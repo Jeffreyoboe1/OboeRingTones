@@ -32,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         recyclerlViewMain.layoutManager = LinearLayoutManager(this)
         recyclerlViewMain.adapter = adapter
 
+        // testing...
+
+        copyRawSoundFile();
+
 
 
 
