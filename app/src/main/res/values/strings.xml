@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">OboeRingTones</string>
+    <string name="save_as">Save As...</string>
+    <string name="notification">Notification</string>
+    <string name="alarm">Alarm</string>
+    <string name="ringtone">Ringtone</string>
 </resources>
