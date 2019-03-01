@@ -115,9 +115,9 @@ class MyAdapter(val excerptList: ArrayList<OboeExcerpt>, val context: Context): 
         }
 
         if (position % 2 ==0) {
-            holder.itemView.setBackgroundColor(Color.RED)
+           // holder.itemView.setBackgroundColor(Color.RED)
         } else {
-            holder.itemView.setBackgroundColor(Color.MAGENTA)
+           // holder.itemView.setBackgroundColor(Color.MAGENTA)
 
         }
 

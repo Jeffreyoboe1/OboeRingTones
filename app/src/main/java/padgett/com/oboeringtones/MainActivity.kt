@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.ContextMenu
@@ -38,9 +39,10 @@ class MainActivity : AppCompatActivity() {
 
         //registerForContextMenu(recyclerlViewMain) -- this works for ListViews and GridViews, not RecyclerViews
 
-        recyclerlViewMain.setBackgroundColor(Color.CYAN);
+        //recyclerlViewMain.setBackgroundColor(Color.CYAN);
 
         recyclerlViewMain.layoutManager = LinearLayoutManager(this)
+        recyclerlViewMain.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
         recyclerlViewMain.adapter = adapter
 
 

@@ -47,13 +47,31 @@ fun requestPermission() {
         } catch (e: IOException) {
             // TODO Auto-generated catch block
         }
-        
+
         var directory: String = ""
+        var ringtoneManagerType: Int = 0
+
+
         when (typeOfTone) {
-            MediaStore.Audio.Media.IS_RINGTONE -> directory = Environment.DIRECTORY_RINGTONES
-            MediaStore.Audio.Media.IS_NOTIFICATION -> directory = Environment.DIRECTORY_NOTIFICATIONS
-            MediaStore.Audio.Media.IS_ALARM -> directory = Environment.DIRECTORY_ALARMS
-            else -> directory = Environment.DIRECTORY_RINGTONES
+
+            MediaStore.Audio.Media.IS_RINGTONE -> {
+                directory = Environment.DIRECTORY_RINGTONES
+                ringtoneManagerType = RingtoneManager.TYPE_RINGTONE
+                }
+
+            MediaStore.Audio.Media.IS_NOTIFICATION -> {
+                directory = Environment.DIRECTORY_NOTIFICATIONS
+                ringtoneManagerType = RingtoneManager.TYPE_NOTIFICATION
+                }
+
+            MediaStore.Audio.Media.IS_ALARM -> {
+                directory = Environment.DIRECTORY_ALARMS
+                ringtoneManagerType = RingtoneManager.TYPE_ALARM
+                }
+            else -> {
+                directory = Environment.DIRECTORY_RINGTONES
+                ringtoneManagerType = RingtoneManager.TYPE_RINGTONE
+            }
         }
 
         val path = Environment.getExternalStoragePublicDirectory(directory).path + "/"
@@ -92,7 +110,7 @@ fun requestPermission() {
 
         val values = ContentValues()
         values.put(MediaStore.MediaColumns.DATA, k.absolutePath)
-        values.put(MediaStore.MediaColumns.TITLE, "${excerpt.title}")
+        values.put(MediaStore.MediaColumns.TITLE, "Not Default ${excerpt.title}")
         values.put(MediaStore.MediaColumns.MIME_TYPE, "audio/m4a")
         values.put(MediaStore.Audio.Media.ARTIST, "This is Where Artist goes")
         values.put(MediaStore.Audio.Media.IS_RINGTONE, true)
@@ -104,8 +122,9 @@ fun requestPermission() {
         context.getContentResolver().delete(uri, MediaStore.MediaColumns.DATA + "=\"" + k.absolutePath + "\"", null)
         val newUri = context.getContentResolver().insert(uri, values)
 
+
         try {
-            RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, newUri)
+            RingtoneManager.setActualDefaultRingtoneUri(context, ringtoneManagerType, newUri)
         } catch (e: Exception) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (!Settings.System.canWrite(context)) {
@@ -116,6 +135,7 @@ fun requestPermission() {
                 }
             }
         }
+
 
 
         Toast.makeText(context, "Done on copier page.", Toast.LENGTH_SHORT).show()
