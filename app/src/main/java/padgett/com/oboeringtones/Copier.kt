@@ -36,7 +36,7 @@ fun requestPermission() {
     fun copyRawSoundFile(context: Context, excerpt: OboeExcerpt, typeOfTone: String): Boolean {
         var buffer: ByteArray? = null
         val fileInputStream = context.getResources().openRawResource(excerpt.musicResource)
-        var size = 50
+        var size: Int
         // this is where we are going to copy our raw resource sound file
 
         try {
@@ -48,8 +48,8 @@ fun requestPermission() {
             // TODO Auto-generated catch block
         }
 
-        var directory: String = ""
-        var ringtoneManagerType: Int = 0
+        var directory: String
+        var ringtoneManagerType: Int
 
 
         when (typeOfTone) {

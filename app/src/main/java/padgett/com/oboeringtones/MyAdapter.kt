@@ -52,9 +52,9 @@ class MyAdapter(val excerptList: ArrayList<OboeExcerpt>, val context: Context): 
 
         holder.itemView.textView.setText(title)
         var copied: Boolean
-        var choice: String = ""
+        var choice: String
 
-        var myDialogListener = DialogInterface.OnClickListener { dialog, which ->
+        var myDialogListener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 0 -> {
                     copied = copyRawSoundFile(holder.itemView.context, oboeExcerpt, MediaStore.Audio.Media.IS_RINGTONE)
@@ -67,7 +67,9 @@ class MyAdapter(val excerptList: ArrayList<OboeExcerpt>, val context: Context): 
                         copied = copyRawSoundFile(holder.itemView.context, oboeExcerpt, MediaStore.Audio.Media.IS_ALARM)
                         choice = "Alarm"}
 
-                else -> copied = false
+                else -> {
+                        copied = false
+                        choice = ""}
             }
 
             if (copied) {Toast.makeText(context, "${oboeExcerpt.title} saved as default $choice", Toast.LENGTH_SHORT).show()}
@@ -75,6 +77,7 @@ class MyAdapter(val excerptList: ArrayList<OboeExcerpt>, val context: Context): 
         }
 
         holder.itemView.setOnClickListener {
+
 
             //showMenu(holder.itemView, context)
           //  val popup = PopupMenu(context, holder.itemView)
@@ -101,12 +104,19 @@ class MyAdapter(val excerptList: ArrayList<OboeExcerpt>, val context: Context): 
 
         holder.itemView.imageView.setOnClickListener {
 
+
+
             if (mediaPlayer?.isPlaying() ?: false) {
                 mediaPlayer?.pause()
+                holder.itemView.imageView.setImageResource(android.R.drawable.ic_media_play)
 
             } else {
                 mediaPlayer = MediaPlayer.create(holder.itemView.context, excerpt)
+                mediaPlayer?.setOnCompletionListener {
+                    holder.itemView.imageView.setImageResource(android.R.drawable.ic_media_play)
+                }
                 mediaPlayer?.start()
+                holder.itemView.imageView.setImageResource(android.R.drawable.ic_media_pause)
             }
 
 
