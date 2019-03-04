@@ -52,7 +52,9 @@ class MainActivity : AppCompatActivity() {
         mAdView.loadAd(adRequest)
 
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        //test app interstitial id: "ca-app-pub-3940256099942544/1033173712"
+
+        mInterstitialAd.adUnitId = "ca-app-pub-2213157796139553/1182346628"
         mInterstitialAd.loadAd(AdRequest.Builder().build())
         mInterstitialAd.adListener = object: AdListener() {
             override fun onAdLoaded() {
